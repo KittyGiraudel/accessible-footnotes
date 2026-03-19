@@ -1,4 +1,5 @@
 import { configure, render, screen } from '@testing-library/react'
+import React from 'react'
 import { FootnoteRef, Footnotes, FootnotesProvider, getIdFromTree } from './'
 import '@testing-library/jest-dom'
 
