@@ -3,7 +3,7 @@ id: styling
 title: Styling
 ---
 
-Styling is intentionally left to the author, but `react-a11y-footnotes` ships with basic styles you can opt into.
+As explained in the top-level [styling](/general/styling) section, aesthetic considerations are intentionally left to you, the author. That being said, `react-a11y-footnotes` ships basic styles you can opt in to.
 
 ## Using base styles
 
@@ -36,7 +36,7 @@ or a CDN URL:
 
 ## Overriding and customization
 
-Use these data attributes as CSS hooks:
+You can use these data attributes to hook styles onto various components:
 
 - `data-a11y-footnotes-ref`
 - `data-a11y-footnotes-footer`
@@ -44,6 +44,12 @@ Use these data attributes as CSS hooks:
 - `data-a11y-footnotes-list`
 - `data-a11y-footnotes-list-item`
 - `data-a11y-footnotes-back-link`
+
+:::tip
+
+You do not _have_ to use these for styling. You can also leverage the fact that the library renders `role` attributes and stick to selectors like `[role="doc-noteref"]`. As you prefer.
+
+:::
 
 ## Using CSS-in-JS
 

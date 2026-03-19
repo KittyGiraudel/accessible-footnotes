@@ -10,6 +10,7 @@ const sidebars: SidebarsConfig = {
         'general/guidelines',
         'general/terminology',
         'general/implementations',
+        'general/styling',
       ],
     },
     {
@@ -31,7 +32,12 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Web component',
-      items: ['web-component/overview', 'web-component/usage', 'web-component/frameworks'],
+      items: [
+        'web-component/overview',
+        'web-component/usage',
+        'web-component/frameworks',
+        'web-component/styling',
+      ],
     },
   ],
 }

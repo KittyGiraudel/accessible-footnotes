@@ -29,17 +29,20 @@ npm install eleventy-plugin-footnotes
 
 Add the plugin in your Eleventy config:
 
-```js
-const footnotes = require("eleventy-plugin-footnotes");
+```js title=".eleventy.js"
+import footnotes from "eleventy-plugin-footnotes";
 
-module.exports = function (eleventyConfig) {
+/** @param {import('@11ty/eleventy/UserConfig').default} config */
+export default function (eleventyConfig) {
   eleventyConfig.addPlugin(footnotes, {
     // optional configuration
   });
-};
+}
 ```
 
 By default the plugin:
 
 - Registers a `footnoteref` [paired shortcode](https://www.11ty.dev/docs/shortcodes/#paired-shortcodes) to mark references.
 - Registers a `footnotes` [shortcode](https://www.11ty.dev/docs/shortcodes/) that renders the endnotes list.
+
+Find how to configure and customize your footnotes in the next section.

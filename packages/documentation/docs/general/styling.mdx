@@ -1,0 +1,18 @@
+---
+id: styling
+title: Styling
+---
+
+Regardless of which [implementation](/general/implementations/) you plan on using, the styling considerations are the same since none of the implementation comes with styles. Aesthetics considerations are largely left to you, and this page should help you get started with the core concept.
+
+## Styling strategy
+
+Unlike other footnoting systems, this one uses properly labeled anchors as references instead of numbers (e.g. `[1]`). This is better for accessibility since links can be tabbed through or listed devoid of their surrounding context, and therefore should be [self-explanatory](https://kittygiraudel.com/2020/12/04/a11y-advent-self-explanatory-links/).
+
+To still render a superscript number after every reference, you can use CSS counters. The premise is simple: initialise a counter on your content container (or `body`), and increment it at every reference. Use a pseudo-element to render the number.
+
+Refer to [this article on accessible footnotes](https://www.sitepoint.com/accessible-footnotes-css/) for a more comprehensive explanation and styling solution, or just copy/paste base styles from below.
+
+## Core styles
+
+<BaseStyles />
