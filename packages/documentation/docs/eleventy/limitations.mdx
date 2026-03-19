@@ -1,0 +1,12 @@
+---
+id: limitations
+title: Limitations
+---
+
+## Multiple references per footnote
+
+As highlighted in [issue #83](https://github.com/KittyGiraudel/eleventy-plugin-footnotes/issues/83), it is currently not possible to have multiple references pointing to the same footnote.
+
+The main reason why this is not possible is because the premise is to leverage CSS counters for numbering in order not to have to maintain a bunch of indexation logic. That means every single reference ends up incrementing the counter by 1, which makes shared references impossible.
+
+There is a proof-of-concept in [pull-request #104](https://github.com/KittyGiraudel/eleventy-plugin-footnotes/pull/104) to make it possible, but it adds a lot of complexity to the core library so was never merged.

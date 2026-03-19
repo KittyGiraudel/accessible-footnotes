@@ -20,7 +20,13 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Eleventy plugin',
-      items: ['eleventy/overview', 'eleventy/api', 'eleventy/usage', 'eleventy/styling'],
+      items: [
+        'eleventy/overview',
+        'eleventy/api',
+        'eleventy/usage',
+        'eleventy/styling',
+        'eleventy/limitations',
+      ],
     },
     {
       type: 'category',
