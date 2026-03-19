@@ -1,0 +1,25 @@
+name: Tests (React Component)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  jest-run:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-a11y-footnotes
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
