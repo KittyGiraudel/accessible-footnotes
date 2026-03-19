@@ -5,8 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FootnotesProvider = exports.Footnotes = exports.FootnoteRef = void 0;
 exports.getIdFromTree = getIdFromTree;
-var _react = _interopRequireDefault(require("react"));
 var _propTypes = _interopRequireDefault(require("prop-types"));
+var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -106,7 +106,7 @@ var Footnotes = exports.Footnotes = function Footnotes(_ref) {
       "data-a11y-footnotes-list-item": true
     }, description, "\xA0", /*#__PURE__*/_react["default"].createElement(BackLink, {
       "data-a11y-footnotes-back-link": true,
-      href: '#' + idRef,
+      href: "#".concat(idRef),
       "aria-label": "Back to reference ".concat(index + 1),
       role: "doc-backlink"
     }));
@@ -126,10 +126,10 @@ var FootnotesProvider = exports.FootnotesProvider = function FootnotesProvider(_
     return id || getIdFromTree(children);
   }, []);
   var getFootnoteRefId = _react["default"].useCallback(function (props) {
-    return getBaseId(props) + '-ref';
+    return "".concat(getBaseId(props), "-ref");
   }, [getBaseId]);
   var getFootnoteId = _react["default"].useCallback(function (props) {
-    return getBaseId(props) + '-note';
+    return "".concat(getBaseId(props), "-note");
   }, [getBaseId]);
 
   // When JavaScript kicks in and the application mounts, reset the footnotes
