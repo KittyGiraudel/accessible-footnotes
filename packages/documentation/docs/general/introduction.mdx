@@ -4,9 +4,11 @@ title: Introduction
 slug: /
 ---
 
+import { FootnoteRef, Footnotes } from "react-a11y-footnotes";
+
 ## What are footnotes
 
-Footnotes are short notes that add context to something you just read. You usually see them as a small reference in the text, with the full note shown at the end of the article or section.
+Footnotes are <FootnoteRef description={<>Footnotes do not actually have to be short, you can do whatever you want. Randall Munroe, in his <em>What If</em> books, has rather lengthy footnotes at times — and they are a delight.</>}>short</FootnoteRef> notes that add context to something you just read. You usually see them as a small reference in the text, with the full note shown at the end of the article or section.
 
 They are useful when you want to add additional content without disrupting the main flow of the page. Think things like sources or citations, extra non-essential details, clarifications or just additional notes.
 
@@ -43,3 +45,5 @@ All of them aim to:
 - Make it easy to style the visual appearance independently of the behaviour
 
 If you already know which stack you are using, you can jump directly to the implementation that matches it. Otherwise, start with the guidelines and “choosing an implementation” pages.
+
+<Footnotes />

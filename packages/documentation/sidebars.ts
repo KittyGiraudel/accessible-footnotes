@@ -9,7 +9,7 @@ const sidebars: SidebarsConfig = {
         'general/introduction',
         'general/guidelines',
         'general/terminology',
-        'general/choosing-an-implementation',
+        'general/implementations',
       ],
     },
     {

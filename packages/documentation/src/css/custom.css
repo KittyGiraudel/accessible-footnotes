@@ -1,3 +1,5 @@
+@import 'react-a11y-footnotes/dist/styles.css';
+
 :root {
   --ifm-color-primary: #b8255f;
   --ifm-color-primary-dark: #9f1f52;
