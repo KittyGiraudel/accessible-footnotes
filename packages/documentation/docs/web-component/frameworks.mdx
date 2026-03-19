@@ -1,0 +1,53 @@
+---
+id: frameworks
+title: Using with frameworks
+---
+
+Because the web component is framework‑agnostic, you can use it in most rendering stacks.
+
+## React
+
+React can render custom elements directly:
+
+```tsx
+export function Article() {
+  return (
+    <article>
+      <p>
+        Something about{" "}
+        <a11y-footnote-ref note="Extra context for this sentence">
+          this topic
+        </a11y-footnote-ref>
+        .
+      </p>
+      <a11y-footnotes />
+    </article>
+  );
+}
+```
+
+Register `defineAccessibleFootnotes()` once at app startup (for example in your root entry file).
+
+## Eleventy
+
+Emit the same tags in templates or markdown-generated HTML:
+
+```html
+<p>
+  Content with
+  <a11y-footnote-ref note="Additional note">a reference</a11y-footnote-ref>.
+</p>
+<a11y-footnotes></a11y-footnotes>
+```
+
+## Other frameworks
+
+- Vue, Svelte, Astro, Rails, Laravel, and plain server-rendered HTML all work as long as:
+  - custom elements are supported (or polyfilled)
+  - the defining script is loaded on pages using these tags
+
+## When to choose this vs dedicated packages
+
+- Prefer `react-a11y-footnotes` for React-only apps.
+- Prefer `eleventy-plugin-footnotes` for Eleventy-only sites.
+- Prefer this web component when you want one implementation reused across different environments.

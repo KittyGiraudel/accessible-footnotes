@@ -1,0 +1,65 @@
+---
+id: styling
+title: Styling
+---
+
+Styling is intentionally left to the author, but `react-a11y-footnotes` ships with basic styles you can opt into.
+
+## Using base styles
+
+If you use a bundler:
+
+```js
+import {
+  FootnotesProvider,
+  FootnoteRef,
+  Footnotes,
+} from "react-a11y-footnotes";
+import "react-a11y-footnotes/dist/styles.css";
+```
+
+Without a bundler, you can load:
+
+```txt
+your-app/node_modules/react-a11y-footnotes/dist/styles.css
+```
+
+or a CDN URL:
+
+```html
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://unpkg.com/react-a11y-footnotes@<version>/dist/styles.css"
+/>
+```
+
+## Overriding and customization
+
+Use these data attributes as CSS hooks:
+
+- `data-a11y-footnotes-ref`
+- `data-a11y-footnotes-footer`
+- `data-a11y-footnotes-title`
+- `data-a11y-footnotes-list`
+- `data-a11y-footnotes-list-item`
+- `data-a11y-footnotes-back-link`
+
+## Using CSS-in-JS
+
+Given every component rendered by the `Footnotes` component is customisable, and `FootnoteRef` accept both `style` and `className`, integration with CSS-in-JS libraries should be relatively seamless.
+
+For instance, the `FootnoteRef` could be wrapped as such with [Fela](https://fela.js.org):
+
+```js
+const refStyles = () => ({ color: "deeppink" });
+const Ref = createComponentWithProxy(refStyles, FootnoteRef);
+```
+
+And with [styled-components](https://styled-components.com):
+
+```js
+const Ref = styled(FootnoteRef)`
+  color: deeppink;
+`;
+```

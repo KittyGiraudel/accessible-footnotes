@@ -1,0 +1,38 @@
+---
+id: usage
+title: Usage
+---
+
+The library exports three components, all needed for the full workflow:
+
+- `FootnotesProvider` wraps your content area.
+- `FootnoteRef` renders a semantic inline reference.
+- `Footnotes` renders the endnotes list and back links.
+
+A complete example:
+
+```tsx
+import {
+  FootnotesProvider,
+  FootnoteRef as Ref,
+  Footnotes,
+} from "react-a11y-footnotes";
+
+export function Article() {
+  return (
+    <FootnotesProvider>
+      <p>
+        Maintaining{" "}
+        <Ref description="Footnotes are notes placed at the bottom of a page.">
+          footnotes
+        </Ref>{" "}
+        manually can be a pain.
+      </p>
+
+      <Footnotes />
+    </FootnotesProvider>
+  );
+}
+```
+
+You can learn how to configure the footnotes in the next section, and find a [complete demo on CodeSandbox](https://codesandbox.io/s/react-a11y-footnotes-f9lpdy).

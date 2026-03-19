@@ -1,0 +1,38 @@
+---
+id: overview
+title: Overview
+---
+
+The web‑component package (`accessible-footnotes`) provides a framework-agnostic implementation of accessible footnotes using Custom Elements.
+
+It ships two elements that work together:
+
+- `<a11y-footnote-ref>` – inline footnote reference.
+- `<a11y-footnotes>` – endnotes list at the bottom of the content.
+
+Use this package when:
+
+- you are not using React or Eleventy
+- you want one footnotes implementation shared across multiple front ends
+- you prefer progressive enhancement on top of regular HTML
+
+## What it gives you
+
+The generated markup follows the same accessibility model as your other implementations:
+
+- `role="doc-noteref"` on references
+- `role="doc-endnotes"` on the notes container
+- `role="doc-backlink"` on each backlink
+- `aria-describedby="footnotes-label"` for reference-to-title association
+
+You also get consistent data hooks for styling and targeting (`data-a11y-footnotes="…"`).
+
+## Package location
+
+This implementation lives in `packages/web-component-footnotes`.
+
+:::info
+
+Make sure to understand the [terminology](/general/terminology) before getting started.
+
+:::

@@ -1,0 +1,12 @@
+---
+id: advanced
+title: Advanced
+---
+
+## ID generation
+
+For a reference to link to its relevant footnote, and for the latter to provide a link back to the reference, there is an automatic system for resolving identifiers—regardless whether `id` is passed to the reference or not.
+
+Consider a reference which receives an `id` prop named `foobar` (`<FootnoteRef id="foobar">`). The underlying anchor element will actually receive `foobar-ref` as an `id` (`<a id="foobar-ref">`). Similarly, the relevant footnote will receive `foobar-note` as an `id` (`<li id="foobar-note">`). This behaviour cannot be changed.
+
+If no `id` is passed to references (`<FootnoteRef>`) — which is usually the case — the `id` will be computed from the content of the reference. For instance if the text says “CSS counters”, the resolved identifiers will be `css-counters-ref` and `css-counters-note`.

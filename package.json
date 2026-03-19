@@ -3,6 +3,9 @@
   "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
+    "docs:start": "cd packages/documentation && npm run start",
+    "docs:build": "cd packages/documentation && npm run build",
+    "docs:serve": "cd packages/documentation && npm run serve",
     "lint": "biome lint .",
     "format": "biome format .",
     "check": "biome check ."

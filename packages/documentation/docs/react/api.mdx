@@ -1,0 +1,87 @@
+---
+id: api
+title: API
+---
+
+## `FootnotesProvider`
+
+The `footnotesTitleId` prop can be passed to customise the `id` attribute assigned to the title rendered by `Footnotes` and referenced in every singled `FootnoteRef`.
+
+If you are going to customise the `Title` prop from `Footnotes`, make sure to render `props.id` in the DOM, as this is how the value of `footnotesTitleId` is mapped between the references and the footnotes.
+
+```tsx
+<FootnotesProvider footnotesTitleId="footnotes-label"></FootnotesProvider>
+```
+
+## `FootnoteRef`
+
+The `FootnoteRef` renders a link like this:
+
+```html
+<a
+  id="css-counters-ref"
+  href="#css-counters-note"
+  aria-describedby="footnotes-label"
+  role="doc-noteref"
+  >CSS counters</a
+>
+```
+
+- The `description` prop is mandatory and contains the content of the footnote. It can be a string or a React tree.
+- The `id` prop can be passed to handle `id` manually, otherwise it is automatically generated from the reference content.
+- The `style` and `className` props can be freely passed through in order to enable styling with CSS-in-JS libraries (see [Styling](/react/styling) section).
+
+```tsx
+<FootnoteRef
+  id="my-footnote-id"
+  description="This part is the footnote itself, injected at the bottom."
+  style={{ color: "red" }}
+  className="FootnoteRef"
+>
+  this part is the reference, linking to the footnote
+</FootnoteRef>
+```
+
+As you can see, the footnote reference itself does not contain a number (e.g. `[1]`) on an asterisk (`*`). This is done in CSS with pseudo-elements. If CSS does not render, the links still work and the footnotes still make sense, no big deal.
+
+## `Footnotes`
+
+The `Footnotes` component renders a HTML structure like this:
+
+```html
+<footer role="doc-endnotes">
+  <h2 id="footnotes-label">Footnotes</h2>
+  <ol>
+    <li id="css-counters-note">
+      CSS counters are, in essence, variables maintained by CSS whose values may
+      be incremented by CSS rules to track how many times they’re used.
+      <a
+        href="#css-counters-ref"
+        aria-label="Back to reference 1"
+        role="doc-backlink"
+        >↩</a
+      >
+    </li>
+  </ol>
+</footer>
+```
+
+- The `Wrapper` prop can be passed to customise the wrapper. It is `'footer'` by default to render a `<footer>` HTML element, and can accept any React component. This wrapper is technically not mandatory and could be replaced with a `React.Fragment`.
+
+- The `Title` prop can be passed to customise the title. It is `props => <h2 {...props}>Footnotes</h2>` by default to render a title level 2 named “Footnotes”, and can accept any React component. This component can be [visually hidden](https://hugogiraudel.com/2016/10/13/css-hide-and-seek/) but **it should still be present and accessible**!
+
+- The `List` prop can be passed to customise the list. It is `'ol'` by default to render a `<ol>` HTML element, and can accept any React component.
+
+- The `ListItem` prop can be passed to customise the list. It is `'li'` by default to render a `<li>` HTML element, and can accept any React component.
+
+- The `BackLink` prop can be passed to customise the link back to the reference with each list item. It is `props => <a {...props}>↩</a>` by default to render a link containing `↩`, and can accepted any component.
+
+```tsx
+<Footnotes
+  Title={(props) => (
+    <Typography variant="h5" component="h2" {...props}>
+      Footnotes
+    </Typography>
+  )}
+/>
+```

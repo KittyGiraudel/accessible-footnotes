@@ -1,0 +1,89 @@
+---
+id: usage
+title: Usage
+---
+
+## 1) Register the custom elements
+
+Load and register the components (for example from a bundled build):
+
+```html
+<script type="module">
+  import { defineAccessibleFootnotes } from "./dist/index.js";
+
+  defineAccessibleFootnotes();
+</script>
+```
+
+## 2) Author your content with references
+
+Then use the custom elements in your markup:
+
+```html
+<article>
+  <p>
+    Something about
+    <a11y-footnote-ref
+      note="CSS counters are, in essence, variables maintained by CSS whose values may be incremented by CSS rules."
+    >
+      CSS counters
+    </a11y-footnote-ref>
+    that deserves a footnote.
+  </p>
+
+  <a11y-footnotes></a11y-footnotes>
+</article>
+```
+
+## 3) What gets rendered
+
+Each `<a11y-footnote-ref>` is upgraded into a semantic link similar to:
+
+```html
+<a
+  href="#footnote-1"
+  id="footnote-ref-1"
+  role="doc-noteref"
+  aria-describedby="footnotes-label"
+  data-a11y-footnotes="ref"
+>
+  CSS counters
+</a>
+```
+
+The `<a11y-footnotes>` element renders:
+
+```html
+<footer role="doc-endnotes" data-a11y-footnotes="footer">
+  <h2 id="footnotes-label" data-a11y-footnotes="title">Footnotes</h2>
+  <ol data-a11y-footnotes="list">
+    <li id="footnote-1" data-a11y-footnotes="item">
+      CSS counters are...
+      <a
+        href="#footnote-ref-1"
+        role="doc-backlink"
+        aria-label="Back to reference 1"
+        data-a11y-footnotes="back-link"
+      >
+        ↩
+      </a>
+    </li>
+  </ol>
+</footer>
+```
+
+## Styling
+
+The package does not force any CSS. A common pattern is:
+
+- reset a `footnotes` counter on your content root
+- increment it on each `[role="doc-noteref"]`
+- render visual markers with `::after`
+
+You can target data hooks such as:
+
+- `data-a11y-footnotes="ref"`
+- `data-a11y-footnotes="footer"`
+- `data-a11y-footnotes="list"`
+- `data-a11y-footnotes="item"`
+- `data-a11y-footnotes="back-link"`

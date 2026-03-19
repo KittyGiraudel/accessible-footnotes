@@ -1,0 +1,16 @@
+---
+id: guidelines
+title: Guiding principles
+---
+
+Accessible footnotes are first and foremost about **people**: screen‑reader users, keyboard users, people who skim, and everyone else who might interact with your content in various conditions.
+
+Some guiding principles behind these implementations:
+
+- **Use proper roles**: references and endnotes use [`role="doc-noteref"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-noteref) and [`role="doc-endnotes"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-endnotes) so assistive technologies can recognise them.
+- **Provide a clear label**: the footnotes section exposes a heading (usually “Footnotes”) that can be announced and navigated to.
+- **Support round‑trips**: each footnote exposes a “back to reference” link so readers can easily jump back to where they were.
+- **Work without CSS**: if styles fail to load, links and content should still make sense and be fully usable.
+- **Keep authoring simple**: it should be easy to add, remove, and reorder footnotes without manual index maintenance.
+
+Each implementation applies these ideas slightly differently, but the outcome should be similar: predictable, robust footnotes that do not get in the way of reading.

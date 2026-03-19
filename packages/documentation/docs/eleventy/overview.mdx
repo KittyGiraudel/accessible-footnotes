@@ -1,0 +1,45 @@
+---
+id: overview
+title: Overview
+---
+
+The `eleventy-plugin-footnotes` package is an Eleventy plugin that turns Liquid tags into accessible footnotes. It was originally published in 2020 and announced in _[Footnotes in Eleventy](https://kittygiraudel.com/2020/12/02/footnotes-in-11ty/)_.
+
+It is a good fit when:
+
+- Your site is built with [Eleventy](https://www.11ty.dev).
+- You write content in Markdown or Liquid templates.
+- You want footnotes generated at build time.
+
+:::info
+
+Make sure to understand the [terminology](/general/terminology) before getting started.
+
+:::
+
+## Install
+
+Install it from npm:
+
+```bash
+npm install eleventy-plugin-footnotes
+```
+
+## Setup
+
+Add the plugin in your Eleventy config:
+
+```js
+const footnotes = require("eleventy-plugin-footnotes");
+
+module.exports = function (eleventyConfig) {
+  eleventyConfig.addPlugin(footnotes, {
+    // optional configuration
+  });
+};
+```
+
+By default the plugin:
+
+- Registers a `footnoteref` [paired shortcode](https://www.11ty.dev/docs/shortcodes/#paired-shortcodes) to mark references.
+- Registers a `footnotes` [shortcode](https://www.11ty.dev/docs/shortcodes/) that renders the endnotes list.

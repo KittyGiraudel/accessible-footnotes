@@ -1,0 +1,31 @@
+---
+id: usage
+title: Usage
+---
+
+## Overview
+
+1. Wrap a text section with the `footnoteref` Liquid tag while making sure to pass it an `id` as first argument, and the footnote content as a second argument. See [example](#example).
+
+2. Render the footnotes section at the bottom of the article layout (or where you feel like) using the `{% footnotes %}` shortcode.
+
+## Example
+
+```html
+Something about {% footnoteref "css-counters", "CSS counters are, in essence,
+variables maintained by CSS whose values may be incremented by CSS rules to
+track how many times they’re used." %}CSS counters{% endfootnoteref %} that
+deserves a footnote explaining what they are.
+```
+
+Note that footnotes accept HTML, so you can inject any markup you want in there. If you would like to use Markdown (or any other filters of your choice), you could extract the footnote in a variable before:
+
+```liquid
+{% assign css_counters_footnote = "[CSS counters](…) are, in essence, variables
+maintained by CSS whose values may be incremented by CSS rules to track how many
+times they’re used." | markdown | replace: "<p>", "" | replace: "</p>", "" %}
+Something about {% footnoteref "css-counters" css_counters_footnote %}CSS
+counters{% endfootnoteref %} that deserves a footnote explaining what they are.
+```
+
+Note that if the footnote content (2nd argument) is omitted entirely (willingly or by mistake), the footnote reference will not be rendered as an anchor at all since there is nothing to link to.

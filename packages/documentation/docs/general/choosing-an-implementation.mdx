@@ -1,0 +1,36 @@
+---
+id: choosing-an-implementation
+title: Choosing an implementation
+---
+
+There are three main ways to use accessible footnotes from this repo.
+
+## React applications
+
+Use **`react-a11y-footnotes`** if:
+
+- Your site or app is already built with React.
+- You are happy to manage footnotes as React components and props.
+- You want tight integration with your existing component library and styling system.
+
+It gives you a provider, inline references, and a rendered footnotes section.
+
+## Eleventy sites
+
+Use **`eleventy-plugin-footnotes`** if:
+
+- You are building a static site with [Eleventy](https://www.11ty.dev).
+- You prefer writing content in Markdown or Liquid templates.
+- You want footnotes to be generated at build time rather than in the browser.
+
+It exposes a pair of Liquid tags/shortcodes to mark references and render the final list.
+
+## Any framework (or none)
+
+Use the **web component (`accessible-footnotes`)** if:
+
+- You want a framework‑agnostic approach.
+- You render HTML from any stack (Rails, Laravel, Astro, vanilla HTML, …).
+- You like the idea of progressive enhancement: drop in a script, use a custom element.
+
+It is a good fit when you want to share the same behaviour across multiple front‑ends or do not want to commit to React.
