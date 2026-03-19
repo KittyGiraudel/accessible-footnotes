@@ -1,0 +1,13 @@
+{
+  "name": "accessible-footnotes-monorepo",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "lint": "biome lint .",
+    "format": "biome format .",
+    "check": "biome check ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.8"
+  }
+}

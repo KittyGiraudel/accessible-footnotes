@@ -9,7 +9,9 @@
     "build": "tsc",
     "dev": "vite",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "biome lint .",
+    "format": "biome format ."
   },
   "keywords": [],
   "author": "",

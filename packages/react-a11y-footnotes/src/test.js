@@ -1,6 +1,5 @@
-import React from 'react'
-import { Footnotes, FootnotesProvider, FootnoteRef, getIdFromTree } from './'
-import { render, configure, screen } from '@testing-library/react'
+import { configure, render, screen } from '@testing-library/react'
+import { FootnoteRef, Footnotes, FootnotesProvider, getIdFromTree } from './'
 import '@testing-library/jest-dom'
 
 configure({ testIdAttribute: 'id' })
@@ -20,10 +19,8 @@ describe('The `FootnoteRef` component', () => {
   it('should render an anchor', () => {
     render(
       <FootnotesProvider>
-        <FootnoteRef description='CSS Counters are nice'>
-          CSS counters
-        </FootnoteRef>
-      </FootnotesProvider>
+        <FootnoteRef description="CSS Counters are nice">CSS counters</FootnoteRef>
+      </FootnotesProvider>,
     )
 
     const anchor = screen.getByTestId('css-counters-ref')
@@ -34,10 +31,10 @@ describe('The `FootnoteRef` component', () => {
   it('should use provided id if any', () => {
     render(
       <FootnotesProvider>
-        <FootnoteRef description='CSS Counters are nice' id='foobar'>
+        <FootnoteRef description="CSS Counters are nice" id="foobar">
           CSS counters
         </FootnoteRef>
-      </FootnotesProvider>
+      </FootnotesProvider>,
     )
 
     const anchor = screen.getByTestId('foobar-ref')
@@ -50,13 +47,13 @@ describe('The `FootnoteRef` component', () => {
     render(
       <FootnotesProvider>
         <FootnoteRef
-          description='CSS Counters are nice'
-          className='FootnoteRef'
+          description="CSS Counters are nice"
+          className="FootnoteRef"
           style={{ color: 'red' }}
         >
           CSS counters
         </FootnoteRef>
-      </FootnotesProvider>
+      </FootnotesProvider>,
     )
     const anchor = screen.getByTestId('css-counters-ref')
     expect(anchor).toHaveAttribute('data-a11y-footnotes-ref')
@@ -70,7 +67,7 @@ describe('The `Footnotes` component', () => {
     const { container } = render(
       <FootnotesProvider>
         <Footnotes />
-      </FootnotesProvider>
+      </FootnotesProvider>,
     )
 
     expect(container).toBeEmptyDOMElement()
@@ -79,11 +76,9 @@ describe('The `Footnotes` component', () => {
   it('should render footnotes if any', () => {
     render(
       <FootnotesProvider>
-        <FootnoteRef description='CSS Counters are nice'>
-          CSS counters
-        </FootnoteRef>
+        <FootnoteRef description="CSS Counters are nice">CSS counters</FootnoteRef>
         <Footnotes />
-      </FootnotesProvider>
+      </FootnotesProvider>,
     )
 
     screen.getByRole('doc-endnotes')
@@ -92,12 +87,10 @@ describe('The `Footnotes` component', () => {
 
   it('should use provided `footnotesTitleId`', () => {
     render(
-      <FootnotesProvider footnotesTitleId='foobar'>
-        <FootnoteRef description='CSS Counters are nice'>
-          CSS counters
-        </FootnoteRef>
+      <FootnotesProvider footnotesTitleId="foobar">
+        <FootnoteRef description="CSS Counters are nice">CSS counters</FootnoteRef>
         <Footnotes />
-      </FootnotesProvider>
+      </FootnotesProvider>,
     )
 
     screen.getByTestId('foobar')
@@ -107,34 +100,22 @@ describe('The `Footnotes` component', () => {
 
   it('should provided styling capacity', () => {
     render(
-      <FootnotesProvider footnotesTitleId='foobar'>
-        <FootnoteRef description='CSS Counters are nice'>
-          CSS counters
-        </FootnoteRef>
+      <FootnotesProvider footnotesTitleId="foobar">
+        <FootnoteRef description="CSS Counters are nice">CSS counters</FootnoteRef>
         <Footnotes
-          Wrapper={props => <footer {...props} id='test-wrapper' />}
-          Title={props => <h3 {...props} id='test-title' />}
-          List={props => <ul {...props} id='test-list' />}
-          ListItem={props => <li {...props} id='test-list-item' />}
-          BackLink={props => <a {...props} id='test-back-link' />}
+          Wrapper={props => <footer {...props} id="test-wrapper" />}
+          Title={props => <h3 {...props} id="test-title" />}
+          List={props => <ul {...props} id="test-list" />}
+          ListItem={props => <li {...props} id="test-list-item" />}
+          BackLink={props => <a {...props} id="test-back-link" />}
         />
-      </FootnotesProvider>
+      </FootnotesProvider>,
     )
 
-    expect(screen.getByTestId('test-wrapper')).toHaveAttribute(
-      'data-a11y-footnotes-footer'
-    )
-    expect(screen.getByTestId('test-title')).toHaveAttribute(
-      'data-a11y-footnotes-title'
-    )
-    expect(screen.getByTestId('test-list')).toHaveAttribute(
-      'data-a11y-footnotes-list'
-    )
-    expect(screen.getByTestId('test-list-item')).toHaveAttribute(
-      'data-a11y-footnotes-list-item'
-    )
-    expect(screen.getByTestId('test-back-link')).toHaveAttribute(
-      'data-a11y-footnotes-back-link'
-    )
+    expect(screen.getByTestId('test-wrapper')).toHaveAttribute('data-a11y-footnotes-footer')
+    expect(screen.getByTestId('test-title')).toHaveAttribute('data-a11y-footnotes-title')
+    expect(screen.getByTestId('test-list')).toHaveAttribute('data-a11y-footnotes-list')
+    expect(screen.getByTestId('test-list-item')).toHaveAttribute('data-a11y-footnotes-list-item')
+    expect(screen.getByTestId('test-back-link')).toHaveAttribute('data-a11y-footnotes-back-link')
   })
 })

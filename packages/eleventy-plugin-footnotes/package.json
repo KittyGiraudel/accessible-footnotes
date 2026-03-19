@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "biome lint .",
+    "format": "biome format ."
   },
   "repository": {
     "type": "git",

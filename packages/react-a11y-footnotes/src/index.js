@@ -1,28 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 const FootnotesContext = React.createContext({})
 
 export const FootnoteRef = props => {
   const { description } = props
-  const {
-    footnotes,
-    footnotesTitleId,
-    getFootnoteRefId,
-    getFootnoteId,
-    register,
-  } = React.useContext(FootnotesContext)
-  const idRef = React.useMemo(
-    () => getFootnoteRefId(props),
-    [getFootnoteRefId, props]
-  )
-  const idNote = React.useMemo(
-    () => getFootnoteId(props),
-    [getFootnoteId, props]
-  )
+  const { footnotes, footnotesTitleId, getFootnoteRefId, getFootnoteId, register } =
+    React.useContext(FootnotesContext)
+  const idRef = React.useMemo(() => getFootnoteRefId(props), [getFootnoteRefId, props])
+  const idNote = React.useMemo(() => getFootnoteId(props), [getFootnoteId, props])
   const footnote = React.useMemo(
     () => ({ idRef, idNote, description }),
-    [idRef, idNote, description]
+    [idRef, idNote, description],
   )
 
   // It is not possible to update the React state on the server, still the
@@ -47,7 +36,7 @@ export const FootnoteRef = props => {
       style={props.style}
       id={idRef}
       href={`#${idNote}`}
-      role='doc-noteref'
+      role="doc-noteref"
       aria-describedby={footnotesTitleId}
       data-a11y-footnotes-ref
     >
@@ -76,7 +65,7 @@ export const Footnotes = ({
   const references = Array.from(footnotes.values())
 
   return (
-    <Wrapper data-a11y-footnotes-footer role='doc-endnotes'>
+    <Wrapper data-a11y-footnotes-footer role="doc-endnotes">
       <Title data-a11y-footnotes-title id={footnotesTitleId} />
       <List data-a11y-footnotes-list>
         {references.map(({ idNote, idRef, description }, index) => (
@@ -84,9 +73,9 @@ export const Footnotes = ({
             {description}&nbsp;
             <BackLink
               data-a11y-footnotes-back-link
-              href={'#' + idRef}
+              href={`#${idRef}`}
               aria-label={`Back to reference ${index + 1}`}
-              role='doc-backlink'
+              role="doc-backlink"
             />
           </ListItem>
         ))}
@@ -95,23 +84,11 @@ export const Footnotes = ({
   )
 }
 
-export const FootnotesProvider = ({
-  children,
-  footnotesTitleId = 'footnotes-label',
-}) => {
+export const FootnotesProvider = ({ children, footnotesTitleId = 'footnotes-label' }) => {
   const [footnotes, setFootnotes] = React.useState(new Map())
-  const getBaseId = React.useCallback(
-    ({ id, children }) => id || getIdFromTree(children),
-    []
-  )
-  const getFootnoteRefId = React.useCallback(
-    props => getBaseId(props) + '-ref',
-    [getBaseId]
-  )
-  const getFootnoteId = React.useCallback(
-    props => getBaseId(props) + '-note',
-    [getBaseId]
-  )
+  const getBaseId = React.useCallback(({ id, children }) => id || getIdFromTree(children), [])
+  const getFootnoteRefId = React.useCallback(props => `${getBaseId(props)}-ref`, [getBaseId])
+  const getFootnoteId = React.useCallback(props => `${getBaseId(props)}-note`, [getBaseId])
 
   // When JavaScript kicks in and the application mounts, reset the footnotes
   // store which was mutated by every reference.

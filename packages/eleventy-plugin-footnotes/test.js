@@ -132,17 +132,13 @@ describe('The `eleventy-plugin-footnotes` plugin', () => {
     expect(root.querySelector('footer').getAttribute('class')).toBe('Kitty')
     expect(root.querySelector('h2').getAttribute('class')).toBe('Kitty__title')
     expect(root.querySelector('ol').getAttribute('class')).toBe('Kitty__list')
-    expect(root.querySelector('li').getAttribute('class')).toBe(
-      'Kitty__list-item'
-    )
-    expect(root.querySelector('li a').getAttribute('class')).toBe(
-      'Kitty__back-link'
-    )
+    expect(root.querySelector('li').getAttribute('class')).toBe('Kitty__list-item')
+    expect(root.querySelector('li a').getAttribute('class')).toBe('Kitty__back-link')
   })
 
   it('should allow customising the back link label', () => {
     const { footnotes } = plugin(config, {
-      backLinkLabel: (_, i) => 'Go to ' + (i + 1),
+      backLinkLabel: (_, i) => `Go to ${i + 1}`,
     })
     const root = document.createElement('div')
     root.innerHTML = footnotes.call(context)
@@ -160,7 +156,7 @@ describe('The `eleventy-plugin-footnotes` plugin', () => {
         list: 'list',
         listItem: 'item',
         backLink: 'back-link',
-      }
+      },
     })
     const root = document.createElement('div')
     root.innerHTML = footnoteref.call(context, 'foo', 'foo-id', 'foo-footnote')

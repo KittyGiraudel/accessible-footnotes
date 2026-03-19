@@ -25,7 +25,9 @@
     "start": "babel src/index.js -o dist/index.js -w",
     "build": "babel src/index.js -o dist/index.js",
     "test": "npm run peer && jest",
-    "peer": "npm info . peerDependencies --json  | command sed 's/[\\{\\},]//g ; s/: /@/g' | xargs npm i --no-save"
+    "peer": "npm info . peerDependencies --json  | command sed 's/[\\{\\},]//g ; s/: /@/g' | xargs npm i --no-save",
+    "lint": "biome lint .",
+    "format": "biome format ."
   },
   "devDependencies": {
     "@babel/cli": "^7.12.7",
