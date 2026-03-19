@@ -1,0 +1,26 @@
+{
+  "name": "accessible-footnotes",
+  "version": "1.0.0",
+  "description": "Framework-agnostic accessible footnotes as Web Components.",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "vite",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.8",
+    "@vitejs/plugin-basic-ssl": "^2.2.0",
+    "jsdom": "^29.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1",
+    "vitest": "^4.1.0"
+  }
+}

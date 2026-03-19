@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Accessible Footnotes Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    article {
+      counter-reset: footnotes;
+      max-width: 60ch;
+      margin: 2rem auto;
+      line-height: 1.6;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    a[role="doc-noteref"] {
+      counter-increment: footnotes;
+      text-decoration: none;
+      color: inherit;
+      cursor: default;
+      outline: none;
+    }
+
+    a[role="doc-noteref"]::after {
+      content: "[" counter(footnotes) "]";
+      vertical-align: super;
+      font-size: 0.6em;
+      margin-left: 2px;
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    a[role="doc-noteref"]:focus::after {
+      outline: thin dotted;
+      outline-offset: 2px;
+    }
+
+    footer :target {
+      background: yellow;
+    }
+
+    a[role="doc-backlink"] {
+      font-size: 0.8em;
+      text-decoration: none;
+      margin-left: 0.25rem;
+    }
+  </style>
+  <script type="module">
+    import { defineAccessibleFootnotes } from "./src/index.ts";
+
+    defineAccessibleFootnotes();
+  </script>
+</head>
+
+<body>
+  <article>
+    <h1>Accessible footnotes as Web Components</h1>
+    <p>
+      Maintaining
+      <a11y-footnote-ref
+        note="Footnotes are notes placed at the bottom of a page. They cite references or comment on a designated part of the text above it.">footnotes</a11y-footnote-ref>
+      manually can be a pain. By using
+      <a11y-footnote-ref note="Cascading Style Sheets">CSS</a11y-footnote-ref>
+      and
+      <a11y-footnote-ref
+        note="CSS counters are, in essence, variables maintained by CSS whose values may be incremented by CSS rules to track how many times they're used.">CSS
+        counters</a11y-footnote-ref>
+      to add the numbered references in the text and an ordered list to
+      display the actual footnotes in the footer, it becomes extremely easy.
+    </p>
+
+    <a11y-footnotes></a11y-footnotes>
+  </article>
+</body>
+
+</html>
