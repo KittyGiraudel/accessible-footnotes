@@ -4,8 +4,8 @@ import type { Config } from '@docusaurus/types'
 const config: Config = {
   title: 'Accessible Footnotes',
   tagline: 'Shared docs for all accessible footnotes implementations',
-  url: 'https://accessible-footnotes.netlify.app/',
-  baseUrl: '/',
+  url: 'https://kittygiraudel.github.io',
+  baseUrl: '/accessible-footnotes/',
   favicon: 'img/favicon.ico',
   organizationName: 'KittyGiraudel',
   projectName: 'accessible-footnotes',
