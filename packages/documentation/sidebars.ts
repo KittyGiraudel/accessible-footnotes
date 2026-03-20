@@ -11,6 +11,7 @@ const sidebars: SidebarsConfig = {
         'general/terminology',
         'general/implementations',
         'general/styling',
+        'general/contributing',
       ],
     },
     {

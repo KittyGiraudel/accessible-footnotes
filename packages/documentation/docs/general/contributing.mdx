@@ -1,0 +1,69 @@
+---
+id: contributing
+title: Contributing
+---
+
+## Repository structure
+
+This is a monorepo managed with `npm` workspaces. Individual packages — including this documentation website — can be found in the `packages` directory.
+
+The main packages are:
+
+- `packages/documentation`: the Docusaurus site you are reading
+- `packages/react-a11y-footnotes`: the React component
+- `packages/eleventy-plugin-footnotes`: the Eleventy plugin
+- `packages/web-component-footnotes`: the framework-agnostic Web Component
+
+## Local development
+
+To work on the React component:
+
+```bash
+cd packages/react-a11y-footnotes
+npm start
+npm run lint
+```
+
+To work on the Eleventy plugin:
+
+```bash
+cd packages/eleventy-plugin-footnotes
+npm test:watch
+npm run lint
+```
+
+To work on the web component:
+
+```bash
+cd packages/web-component-footnotes
+npm run dev & npm run preview
+npm run lint
+```
+
+## Documentation
+
+### Local website
+
+In any case, do not forget to update the documentation (if relevant). To run the documentation site locally:
+
+```bash
+npm install
+npm run docs:start
+```
+
+### Authoring guidelines
+
+Keep pages accessible and easy to scan:
+
+- Prefer short sections and meaningful headings (`##`, `###`)
+- When adding links, ensure they are descriptive (link text should make sense out of context)
+- If you include screenshots or diagrams, add the appropriate alt text
+
+## Submitting a pull request
+
+When opening a PR, include a short explanation of:
+
+- What you changed and why
+- Any screenshots or links that help reviewers validate the outcome
+
+Thanks for helping make accessible footnotes easier to use.
