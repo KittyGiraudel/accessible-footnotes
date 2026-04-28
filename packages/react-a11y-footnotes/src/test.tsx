@@ -1,7 +1,8 @@
 import { configure, render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
+// biome-ignore lint/correctness/noUnusedImports: React is required for the classic JSX runtime in Jest.
 import React from 'react'
 import { FootnoteRef, Footnotes, FootnotesProvider, getIdFromTree } from './'
-import '@testing-library/jest-dom'
 
 configure({ testIdAttribute: 'id' })
 
