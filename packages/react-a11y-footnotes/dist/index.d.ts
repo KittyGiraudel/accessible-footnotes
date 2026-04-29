@@ -1,24 +1,21 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-type BaseProps = {
+import React, { type PropsWithChildren } from 'react';
+type BaseProps = PropsWithChildren<{
     id?: string;
-    children: React.ReactNode;
-};
+}>;
 type FootnoteRefProps = BaseProps & {
     description: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
 };
-export interface FootnotesProviderProps {
-    children: React.ReactNode;
+type FootnotesProviderProps = PropsWithChildren<{
     footnotesTitleId?: string;
-}
+}>;
 export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
     id: string;
 }
 export interface BackLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     'data-a11y-footnotes-back-link': true;
-    href: string;
     'aria-label': string;
     role: 'doc-backlink';
 }

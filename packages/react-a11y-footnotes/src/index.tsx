@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { type PropsWithChildren } from 'react'
 
-type BaseProps = {
-  id?: string
-  children: React.ReactNode
-}
+type BaseProps = PropsWithChildren<{ id?: string }>
 
 type Footnote = {
   idRef: string
@@ -26,10 +23,9 @@ type FootnotesContextValue = {
   register: (footnote: Footnote) => () => void
 }
 
-export interface FootnotesProviderProps {
-  children: React.ReactNode
+type FootnotesProviderProps = PropsWithChildren<{
   footnotesTitleId?: string
-}
+}>
 
 export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
   id: string
@@ -37,7 +33,6 @@ export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
 
 export interface BackLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   'data-a11y-footnotes-back-link': true
-  href: string
   'aria-label': string
   role: 'doc-backlink'
 }
@@ -207,8 +202,10 @@ function getTextFromTree(tree: TreeNode): string {
     text += String(tree)
   } else if (Array.isArray(tree)) {
     text += tree.map(getTextFromTree).join('')
-  } else if (React.isValidElement<{ children?: React.ReactNode }>(tree) && tree.props.children) {
-    text += getTextFromTree(tree.props.children)
+  } else if (React.isValidElement(tree)) {
+    const { children } = tree.props as { children?: React.ReactNode }
+
+    if (children) text += getTextFromTree(children)
   }
 
   return text

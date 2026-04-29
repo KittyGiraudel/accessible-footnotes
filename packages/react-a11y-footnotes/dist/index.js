@@ -188,8 +188,10 @@ function getTextFromTree(tree) {
     text += String(tree);
   } else if (Array.isArray(tree)) {
     text += tree.map(getTextFromTree).join('');
-  } else if (/*#__PURE__*/_react["default"].isValidElement(tree) && tree.props.children) {
-    text += getTextFromTree(tree.props.children);
+  } else if (/*#__PURE__*/_react["default"].isValidElement(tree)) {
+    var _ref5 = tree.props,
+      children = _ref5.children;
+    if (children) text += getTextFromTree(children);
   }
   return text;
 }
