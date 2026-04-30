@@ -9,7 +9,7 @@ type Footnote = {
   description: React.ReactNode
 }
 
-type FootnoteRefProps = BaseProps & {
+export interface FootnoteRefProps extends BaseProps {
   description: React.ReactNode
   className?: string
   style?: React.CSSProperties
@@ -23,9 +23,9 @@ type FootnotesContextValue = {
   register: (footnote: Footnote) => () => void
 }
 
-type FootnotesProviderProps = PropsWithChildren<{
+export interface FootnotesProviderProps extends PropsWithChildren {
   footnotesTitleId?: string
-}>
+}
 
 export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
   id: string
@@ -66,15 +66,30 @@ const defaultContextValue: FootnotesContextValue = {
   register: () => () => undefined,
 }
 
-const FootnotesContext = React.createContext<FootnotesContextValue>(defaultContextValue)
+const FootnotesContext =
+  React.createContext<FootnotesContextValue>(defaultContextValue)
 
-export const FootnoteRef = (props: FootnoteRefProps) => {
+export const FootnoteRef = (props: FootnoteRefProps): React.ReactElement => {
   const { description } = props
-  const { footnotes, footnotesTitleId, getFootnoteRefId, getFootnoteId, register } =
-    React.useContext(FootnotesContext)
-  const idRef = React.useMemo(() => getFootnoteRefId(props), [getFootnoteRefId, props])
-  const idNote = React.useMemo(() => getFootnoteId(props), [getFootnoteId, props])
-  const footnote = React.useMemo(() => ({ idRef, idNote, description }), [idRef, idNote, description])
+  const {
+    footnotes,
+    footnotesTitleId,
+    getFootnoteRefId,
+    getFootnoteId,
+    register,
+  } = React.useContext(FootnotesContext)
+  const idRef = React.useMemo(
+    () => getFootnoteRefId(props),
+    [getFootnoteRefId, props]
+  )
+  const idNote = React.useMemo(
+    () => getFootnoteId(props),
+    [getFootnoteId, props]
+  )
+  const footnote = React.useMemo(
+    () => ({ idRef, idNote, description }),
+    [idRef, idNote, description]
+  )
 
   // It is not possible to update the React state on the server, still the
   // footnote references need to be registered so the footnotes can be rendered.
@@ -98,10 +113,9 @@ export const FootnoteRef = (props: FootnoteRefProps) => {
       style={props.style}
       id={idRef}
       href={`#${idNote}`}
-      role="doc-noteref"
+      role='doc-noteref'
       aria-describedby={footnotesTitleId}
-      data-a11y-footnotes-ref
-    >
+      data-a11y-footnotes-ref>
       {props.children}
     </a>
   )
@@ -119,7 +133,7 @@ export const Footnotes = ({
   List = 'ol',
   ListItem = 'li',
   BackLink = (props: BackLinkProps) => <a {...props}>↩</a>,
-}: FootnotesProps) => {
+}: FootnotesProps): React.ReactElement | null => {
   const { footnotes, footnotesTitleId } = React.useContext(FootnotesContext)
 
   if (footnotes.size === 0) return null
@@ -127,7 +141,7 @@ export const Footnotes = ({
   const references = Array.from(footnotes.values())
 
   return (
-    <Wrapper data-a11y-footnotes-footer role="doc-endnotes">
+    <Wrapper data-a11y-footnotes-footer role='doc-endnotes'>
       <Title data-a11y-footnotes-title id={footnotesTitleId} />
       <List data-a11y-footnotes-list>
         {references.map(({ idNote, idRef, description }, index) => (
@@ -137,7 +151,7 @@ export const Footnotes = ({
               data-a11y-footnotes-back-link
               href={`#${idRef}`}
               aria-label={`Back to reference ${index + 1}`}
-              role="doc-backlink"
+              role='doc-backlink'
             />
           </ListItem>
         ))}
@@ -149,11 +163,22 @@ export const Footnotes = ({
 export const FootnotesProvider = ({
   children,
   footnotesTitleId = 'footnotes-label',
-}: FootnotesProviderProps) => {
-  const [footnotes, setFootnotes] = React.useState<Map<string, Footnote>>(new Map())
-  const getBaseId = React.useCallback(({ id, children }: BaseProps) => id || getIdFromTree(children), [])
-  const getFootnoteRefId = React.useCallback((props: BaseProps) => `${getBaseId(props)}-ref`, [getBaseId])
-  const getFootnoteId = React.useCallback((props: BaseProps) => `${getBaseId(props)}-note`, [getBaseId])
+}: FootnotesProviderProps): React.ReactElement => {
+  const [footnotes, setFootnotes] = React.useState<Map<string, Footnote>>(
+    new Map()
+  )
+  const getBaseId = React.useCallback(
+    ({ id, children }: BaseProps) => id || getIdFromTree(children),
+    []
+  )
+  const getFootnoteRefId = React.useCallback(
+    (props: BaseProps) => `${getBaseId(props)}-ref`,
+    [getBaseId]
+  )
+  const getFootnoteId = React.useCallback(
+    (props: BaseProps) => `${getBaseId(props)}-note`,
+    [getBaseId]
+  )
 
   // When JavaScript kicks in and the application mounts, reset the footnotes
   // store which was mutated by every reference.
@@ -186,8 +211,7 @@ export const FootnotesProvider = ({
         getFootnoteRefId,
         getFootnoteId,
         register,
-      }}
-    >
+      }}>
       {children}
     </FootnotesContext.Provider>
   )
