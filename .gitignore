@@ -4,4 +4,3 @@ node_modules
 *.log*
 packages/documentation/.docusaurus
 packages/documentation/build
-packages/react-a11y-footnotes/dist/*.d.ts
