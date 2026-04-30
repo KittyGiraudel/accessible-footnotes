@@ -14,7 +14,22 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-var FootnotesContext = /*#__PURE__*/_react["default"].createContext({});
+var defaultContextValue = {
+  footnotes: new Map(),
+  footnotesTitleId: '',
+  getFootnoteRefId: function getFootnoteRefId() {
+    return '';
+  },
+  getFootnoteId: function getFootnoteId() {
+    return '';
+  },
+  register: function register() {
+    return function () {
+      return undefined;
+    };
+  }
+};
+var FootnotesContext = /*#__PURE__*/_react["default"].createContext(defaultContextValue);
 var FootnoteRef = exports.FootnoteRef = function FootnoteRef(props) {
   var description = props.description;
   var _React$useContext = _react["default"].useContext(FootnotesContext),
@@ -169,10 +184,14 @@ function getTextFromTree(tree) {
   var text = '';
   if (typeof tree === 'string') {
     text += tree;
+  } else if (typeof tree === 'number') {
+    text += String(tree);
   } else if (Array.isArray(tree)) {
     text += tree.map(getTextFromTree).join('');
-  } else if (tree.props.children) {
-    text += getTextFromTree(tree.props.children);
+  } else if (/*#__PURE__*/_react["default"].isValidElement(tree)) {
+    var _ref5 = tree.props,
+      children = _ref5.children;
+    if (children) text += getTextFromTree(children);
   }
   return text;
 }

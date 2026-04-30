@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    // Keep declarations alongside the transpiled build output.
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // Target a stable modern JavaScript baseline.
+    "target": "es2022",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["dom", "es2022"],
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // Emit only `.d.ts` files; Babel handles JavaScript output.
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/index.tsx"]
+}

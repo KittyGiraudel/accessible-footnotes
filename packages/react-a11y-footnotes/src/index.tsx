@@ -1,18 +1,80 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { type PropsWithChildren } from 'react'
 
-const FootnotesContext = React.createContext({})
+type BaseProps = PropsWithChildren<{ id?: string }>
 
-export const FootnoteRef = props => {
+type Footnote = {
+  idRef: string
+  idNote: string
+  description: React.ReactNode
+}
+
+type FootnoteRefProps = BaseProps & {
+  description: React.ReactNode
+  className?: string
+  style?: React.CSSProperties
+}
+
+type FootnotesContextValue = {
+  footnotes: Map<string, Footnote>
+  footnotesTitleId: string
+  getFootnoteRefId: (props: BaseProps) => string
+  getFootnoteId: (props: BaseProps) => string
+  register: (footnote: Footnote) => () => void
+}
+
+type FootnotesProviderProps = PropsWithChildren<{
+  footnotesTitleId?: string
+}>
+
+export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
+  id: string
+}
+
+export interface BackLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  'data-a11y-footnotes-back-link': true
+  'aria-label': string
+  role: 'doc-backlink'
+}
+
+export interface ListItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
+  id: string
+  children: React.ReactNode
+}
+
+type WrapperComponent = React.ElementType<React.HTMLAttributes<HTMLElement>>
+type TitleComponent = React.ElementType<TitleProps>
+type ListComponent = React.ElementType<React.HTMLAttributes<HTMLElement>>
+type ListItemComponent = React.ElementType<ListItemProps>
+type BackLinkComponent = React.ElementType<BackLinkProps>
+
+export interface FootnotesProps {
+  Wrapper?: WrapperComponent
+  Title?: TitleComponent
+  List?: ListComponent
+  ListItem?: ListItemComponent
+  BackLink?: BackLinkComponent
+}
+
+type TreeNode = React.ReactNode
+
+const defaultContextValue: FootnotesContextValue = {
+  footnotes: new Map<string, Footnote>(),
+  footnotesTitleId: '',
+  getFootnoteRefId: () => '',
+  getFootnoteId: () => '',
+  register: () => () => undefined,
+}
+
+const FootnotesContext = React.createContext<FootnotesContextValue>(defaultContextValue)
+
+export const FootnoteRef = (props: FootnoteRefProps) => {
   const { description } = props
   const { footnotes, footnotesTitleId, getFootnoteRefId, getFootnoteId, register } =
     React.useContext(FootnotesContext)
   const idRef = React.useMemo(() => getFootnoteRefId(props), [getFootnoteRefId, props])
   const idNote = React.useMemo(() => getFootnoteId(props), [getFootnoteId, props])
-  const footnote = React.useMemo(
-    () => ({ idRef, idNote, description }),
-    [idRef, idNote, description],
-  )
+  const footnote = React.useMemo(() => ({ idRef, idNote, description }), [idRef, idNote, description])
 
   // It is not possible to update the React state on the server, still the
   // footnote references need to be registered so the footnotes can be rendered.
@@ -53,11 +115,11 @@ FootnoteRef.propTypes = {
 
 export const Footnotes = ({
   Wrapper = 'footer',
-  Title = props => <h2 {...props}>Footnotes</h2>,
+  Title = (props: TitleProps) => <h2 {...props}>Footnotes</h2>,
   List = 'ol',
   ListItem = 'li',
-  BackLink = props => <a {...props}>↩</a>,
-}) => {
+  BackLink = (props: BackLinkProps) => <a {...props}>↩</a>,
+}: FootnotesProps) => {
   const { footnotes, footnotesTitleId } = React.useContext(FootnotesContext)
 
   if (footnotes.size === 0) return null
@@ -84,17 +146,20 @@ export const Footnotes = ({
   )
 }
 
-export const FootnotesProvider = ({ children, footnotesTitleId = 'footnotes-label' }) => {
-  const [footnotes, setFootnotes] = React.useState(new Map())
-  const getBaseId = React.useCallback(({ id, children }) => id || getIdFromTree(children), [])
-  const getFootnoteRefId = React.useCallback(props => `${getBaseId(props)}-ref`, [getBaseId])
-  const getFootnoteId = React.useCallback(props => `${getBaseId(props)}-note`, [getBaseId])
+export const FootnotesProvider = ({
+  children,
+  footnotesTitleId = 'footnotes-label',
+}: FootnotesProviderProps) => {
+  const [footnotes, setFootnotes] = React.useState<Map<string, Footnote>>(new Map())
+  const getBaseId = React.useCallback(({ id, children }: BaseProps) => id || getIdFromTree(children), [])
+  const getFootnoteRefId = React.useCallback((props: BaseProps) => `${getBaseId(props)}-ref`, [getBaseId])
+  const getFootnoteId = React.useCallback((props: BaseProps) => `${getBaseId(props)}-note`, [getBaseId])
 
   // When JavaScript kicks in and the application mounts, reset the footnotes
   // store which was mutated by every reference.
   React.useEffect(() => setFootnotes(new Map()), [])
 
-  const register = React.useCallback(footnote => {
+  const register = React.useCallback((footnote: Footnote) => {
     setFootnotes(footnotes => {
       const clone = new Map(footnotes)
       if (!clone.has(footnote.idRef)) clone.set(footnote.idRef, footnote)
@@ -128,21 +193,25 @@ export const FootnotesProvider = ({ children, footnotesTitleId = 'footnotes-labe
   )
 }
 
-function getTextFromTree(tree) {
+function getTextFromTree(tree: TreeNode): string {
   let text = ''
 
   if (typeof tree === 'string') {
     text += tree
+  } else if (typeof tree === 'number') {
+    text += String(tree)
   } else if (Array.isArray(tree)) {
     text += tree.map(getTextFromTree).join('')
-  } else if (tree.props.children) {
-    text += getTextFromTree(tree.props.children)
+  } else if (React.isValidElement(tree)) {
+    const { children } = tree.props as { children?: React.ReactNode }
+
+    if (children) text += getTextFromTree(children)
   }
 
   return text
 }
 
-export function getIdFromTree(tree) {
+export function getIdFromTree(tree: TreeNode): string {
   return (
     getTextFromTree(tree)
       .toLowerCase()
